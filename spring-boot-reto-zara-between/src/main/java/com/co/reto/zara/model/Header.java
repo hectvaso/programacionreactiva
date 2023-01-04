@@ -19,7 +19,21 @@ public class Header   {
   @JsonProperty("type")
   private String type = null;
 
-  public Header id(String id) {
+  
+  
+  public Header(String id, String type) {
+	
+	this.id = id;
+	this.type = type;
+}
+  
+
+public Header() {
+
+}
+
+
+public Header id(String id) {
     this.id = id;
     return this;
   }

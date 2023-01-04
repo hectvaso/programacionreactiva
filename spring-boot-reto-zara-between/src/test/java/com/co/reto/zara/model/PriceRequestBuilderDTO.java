@@ -9,9 +9,9 @@ public class PriceRequestBuilderDTO {
 	  
 	  public PriceRequestBuilderDTO() {
 		  this.brandId = 	1;
-		  this.endDate = "2020-06-14 18.30.00";
+		  this.endDate = "2020-12-31 23.59.59";
 		  this.productId = 35455;
-		  this.startDate = "2020-06-14 15.00.00";
+		  this.startDate = "2020-06-14 00.00.00";
 		 
 	  }
 	  

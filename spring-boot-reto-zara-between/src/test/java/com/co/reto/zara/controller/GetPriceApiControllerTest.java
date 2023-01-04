@@ -29,6 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 import static com.co.reto.zara.model.PriceRequestBuilderDTO.arequestPriceDto;
 import static com.co.reto.zara.model.PriceResponseBuilderDTO.aresponsePriceDto;
+import static com.co.reto.zara.model.HeaderTestDataBuilder.aHeader;
+
 
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -63,21 +65,25 @@ public class GetPriceApiControllerTest  {
     	
     	List<GetPriceRequest> listRequest = new ArrayList<>();
     	GetPriceRequest getPriceRequest = new GetPriceRequest();
-    	listRequest.add(getPriceRequest);
+    	getPriceRequest.setHeader(aHeader().build());
     	getPriceRequest.setProduct(arequestPriceDto().build());
     	
+    	listRequest.add(getPriceRequest);
+    	
     	JsonApiBodyRequest request = new JsonApiBodyRequest();
-    	request.addDataItem(getPriceRequest);
+    	request.data(listRequest);
     	
     	List<GetPriceProductResponse>listResponse = new ArrayList<>();
     	GetPriceProductResponse getPriceResponse = new GetPriceProductResponse();
-    	listResponse.add(getPriceResponse);
     	getPriceResponse.setResponse(aresponsePriceDto().build());
+    	listResponse.add(getPriceResponse);
     	
     	JsonApiBodyResponseSuccess responseService = new JsonApiBodyResponseSuccess();
     	responseService.data(listResponse);
-    	 
-    	String controllerRquest = gsonConverter.toJson(request);
+    	
+    	String controllerRquest = objectMapper.writeValueAsString(request);
+
+    	//String controllerRquest = gsonConverter.toJson(request);
 	    try {
 		
 	    /*Act*/
@@ -104,17 +110,24 @@ public class GetPriceApiControllerTest  {
     /*test cuando la fecha es igual a 2020-06-14 16.00.00 */
     @Test
 	  void findPriceByDateTwo() throws Exception {
-    	
     	List<GetPriceRequest> listRequest = new ArrayList<>();
     	GetPriceRequest getPriceRequest = new GetPriceRequest();
-    	listRequest.add(getPriceRequest);
+    	getPriceRequest.setHeader(aHeader().build());
     	getPriceRequest.setProduct(arequestPriceDto().whithDateStart("2020-06-14 16.00.00").build());
-    	
     	JsonApiBodyRequest request = new JsonApiBodyRequest();
-    	request.addDataItem(getPriceRequest);
-    	 
-    	String controllerRquest = gsonConverter.toJson(request);
-	   try {
+    	request.data(listRequest);
+    	
+    	String controllerRquest = objectMapper.writeValueAsString(request);
+	 
+    	List<GetPriceProductResponse>listResponse = new ArrayList<>();
+    	GetPriceProductResponse getPriceResponse = new GetPriceProductResponse();
+    	getPriceResponse.setResponse(aresponsePriceDto().build());
+    	listResponse.add(getPriceResponse);
+    	
+    	JsonApiBodyResponseSuccess responseService = new JsonApiBodyResponseSuccess();
+    	responseService.data(listResponse);
+    	
+    	try {
 		
 	    /*Act*/
 	    ResultActions response = (ResultActions) mockMvc.perform(
@@ -141,17 +154,24 @@ public class GetPriceApiControllerTest  {
     /*test cuando la fecha es igual a 2020-06-14 21.00.00 */
     @Test
 	  void findPriceByDateThree() throws Exception {
-    	
     	List<GetPriceRequest> listRequest = new ArrayList<>();
     	GetPriceRequest getPriceRequest = new GetPriceRequest();
-    	listRequest.add(getPriceRequest);
+    	getPriceRequest.setHeader(aHeader().build());
     	getPriceRequest.setProduct(arequestPriceDto().whithDateStart("2020-06-14 21.00.00").build());
-    	
     	JsonApiBodyRequest request = new JsonApiBodyRequest();
-    	request.addDataItem(getPriceRequest);
-    	 
-    	String controllerRquest = gsonConverter.toJson(request);
-	   try {
+    	request.data(listRequest);
+    	
+    	String controllerRquest = objectMapper.writeValueAsString(request);
+	 
+    	List<GetPriceProductResponse>listResponse = new ArrayList<>();
+    	GetPriceProductResponse getPriceResponse = new GetPriceProductResponse();
+    	getPriceResponse.setResponse(aresponsePriceDto().build());
+    	listResponse.add(getPriceResponse);
+    	
+    	JsonApiBodyResponseSuccess responseService = new JsonApiBodyResponseSuccess();
+    	responseService.data(listResponse);
+    
+    		try {
 		
 	    /*Act*/
 	    ResultActions response = (ResultActions) mockMvc.perform(
@@ -176,17 +196,25 @@ public class GetPriceApiControllerTest  {
     /*test cuando la fecha es igual a 2020-06-15 10.00.00 */
     @Test
 	  void findPriceByDateFour() throws Exception {
-    	
     	List<GetPriceRequest> listRequest = new ArrayList<>();
     	GetPriceRequest getPriceRequest = new GetPriceRequest();
-    	listRequest.add(getPriceRequest);
+    	getPriceRequest.setHeader(aHeader().build());
     	getPriceRequest.setProduct(arequestPriceDto().whithDateStart("2020-06-15 10.00.00").build());
-    	
     	JsonApiBodyRequest request = new JsonApiBodyRequest();
-    	request.addDataItem(getPriceRequest);
-    	 
-    	String controllerRquest = gsonConverter.toJson(request);
-	   try {
+    	request.data(listRequest);
+    	
+    	String controllerRquest = objectMapper.writeValueAsString(request);
+	 
+    	List<GetPriceProductResponse>listResponse = new ArrayList<>();
+    	GetPriceProductResponse getPriceResponse = new GetPriceProductResponse();
+    	getPriceResponse.setResponse(aresponsePriceDto().build());
+    	listResponse.add(getPriceResponse);
+    	
+    	JsonApiBodyResponseSuccess responseService = new JsonApiBodyResponseSuccess();
+    	responseService.data(listResponse);
+    
+    	
+    	  try {
 		
 	    /*Act*/
 	    ResultActions response = (ResultActions) mockMvc.perform(
@@ -213,17 +241,24 @@ public class GetPriceApiControllerTest  {
     /*test cuando la fecha es igual a 2020-06-16 21.00.00 */
     @Test
 	  void findPriceByDateFive() throws Exception {
-    	
     	List<GetPriceRequest> listRequest = new ArrayList<>();
     	GetPriceRequest getPriceRequest = new GetPriceRequest();
-    	listRequest.add(getPriceRequest);
+    	getPriceRequest.setHeader(aHeader().build());
     	getPriceRequest.setProduct(arequestPriceDto().whithDateStart("2020-06-16 21.00.00").build());
-    	
     	JsonApiBodyRequest request = new JsonApiBodyRequest();
-    	request.addDataItem(getPriceRequest);
-    	 
-    	String controllerRquest = gsonConverter.toJson(request);
-	   try {
+    	request.data(listRequest);
+    	
+    	String controllerRquest = objectMapper.writeValueAsString(request);
+	 
+    	List<GetPriceProductResponse>listResponse = new ArrayList<>();
+    	GetPriceProductResponse getPriceResponse = new GetPriceProductResponse();
+    	getPriceResponse.setResponse(aresponsePriceDto().build());
+    	listResponse.add(getPriceResponse);
+    	
+    	JsonApiBodyResponseSuccess responseService = new JsonApiBodyResponseSuccess();
+    	responseService.data(listResponse);
+    
+       try {
 		
 	    /*Act*/
 	    ResultActions response = (ResultActions) mockMvc.perform(
