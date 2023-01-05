@@ -1,7 +1,9 @@
 package com.co.reto.zara.controller;
 
+import com.co.reto.zara.model.GetPriceProductResponse;
 import com.co.reto.zara.model.GetPriceRequest;
 import com.co.reto.zara.model.JsonApiBodyRequest;
+import com.co.reto.zara.model.JsonApiBodyResponseSuccess;
 import com.co.reto.zara.service.PriceServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.aspectj.lang.annotation.Before;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import static com.co.reto.zara.model.PriceRequestBuilderDTO.arequestPriceDto;
 import static com.co.reto.zara.model.HeaderTestDataBuilder.aHeader;
+import static com.co.reto.zara.model.PriceResponseBuilderDTO.aresponsePriceDto;;
 
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -43,6 +46,15 @@ public class GetPriceApiControllerTest {
 	private static final String DATA_JSONPATH = "$.data[0].";
 
 	private static final String URL_TEST = "/getPrice";
+
+	private static final String DATE_TWO = "2020-06-14 16.00.00";
+
+	private static final String DATE_THREE = "2020-06-14 21.00.00";
+	private static final String DATE_FOUR = "2020-06-15 10.00.00";
+	private static final String DATE_FIVE = "2020-06-16 21.00.00";
+	
+	
+	
 
 	@Before(value = "")
 	public void setup() {
@@ -79,8 +91,6 @@ public class GetPriceApiControllerTest {
 			response.andExpect(jsonPath(DATA_JSONPATH + "response.brandId").value(1));
 
 		} catch (Exception e) {
-			// TODO: handle exception
-
 			fail(e.getMessage());
 		}
 
@@ -92,9 +102,9 @@ public class GetPriceApiControllerTest {
 		List<GetPriceRequest> listRequest = new ArrayList<>();
 		GetPriceRequest getPriceRequest = new GetPriceRequest();
 		getPriceRequest.setHeader(aHeader().build());
-		getPriceRequest.setProduct(arequestPriceDto().whithDateStart("2020-06-14 16.00.00").build());
+		getPriceRequest.setProduct(arequestPriceDto().whithDateStart(DATE_TWO).build());
 
-		if (getPriceRequest.getProduct().getStartDate().equals("2020-06-14 16.00.00")) {
+		if (getPriceRequest.getProduct().getStartDate().equals(DATE_TWO)) {
 			getPriceRequest.setProduct(
 					arequestPriceDto().whithDateStartAndEndDate("2020-06-14 15.00.00", "2020-06-14 18.30.00").build());
 
@@ -121,8 +131,7 @@ public class GetPriceApiControllerTest {
 			response.andExpect(jsonPath(DATA_JSONPATH + "response.brandId").value(1));
 
 		} catch (Exception e) {
-			// TODO: handle exception
-
+			
 			fail(e.getMessage());
 		}
 
@@ -134,7 +143,7 @@ public class GetPriceApiControllerTest {
 		List<GetPriceRequest> listRequest = new ArrayList<>();
 		GetPriceRequest getPriceRequest = new GetPriceRequest();
 		getPriceRequest.setHeader(aHeader().build());
-		getPriceRequest.setProduct(arequestPriceDto().whithDateStart("2020-06-14 21.00.00").build());
+		getPriceRequest.setProduct(arequestPriceDto().whithDateStart(DATE_THREE).build());
 
 		if (getPriceRequest.getProduct().getStartDate().equals("2020-06-14 21.00.00")) {
 			getPriceRequest.setProduct(
@@ -162,8 +171,7 @@ public class GetPriceApiControllerTest {
 			response.andExpect(jsonPath(DATA_JSONPATH + ".response.brandId").value(1));
 
 		} catch (Exception e) {
-			// TODO: handle exception
-
+			
 			fail(e.getMessage());
 		}
 
@@ -175,7 +183,7 @@ public class GetPriceApiControllerTest {
 		List<GetPriceRequest> listRequest = new ArrayList<>();
 		GetPriceRequest getPriceRequest = new GetPriceRequest();
 		getPriceRequest.setHeader(aHeader().build());
-		getPriceRequest.setProduct(arequestPriceDto().whithDateStart("2020-06-15 10.00.00").build());
+		getPriceRequest.setProduct(arequestPriceDto().whithDateStart(DATE_FOUR).build());
 
 		if (getPriceRequest.getProduct().getStartDate().equals("2020-06-15 10.00.00")) {
 			getPriceRequest.setProduct(
@@ -203,8 +211,7 @@ public class GetPriceApiControllerTest {
 			response.andExpect(jsonPath(DATA_JSONPATH + "response.brandId").value(1));
 
 		} catch (Exception e) {
-			// TODO: handle exception
-
+			
 			fail(e.getMessage());
 		}
 
@@ -216,7 +223,7 @@ public class GetPriceApiControllerTest {
 		List<GetPriceRequest> listRequest = new ArrayList<>();
 		GetPriceRequest getPriceRequest = new GetPriceRequest();
 		getPriceRequest.setHeader(aHeader().build());
-		getPriceRequest.setProduct(arequestPriceDto().whithDateStart("2020-06-16 21.00.00").build());
+		getPriceRequest.setProduct(arequestPriceDto().whithDateStart(DATE_FIVE).build());
 
 		if (getPriceRequest.getProduct().getStartDate().equals("2020-06-16 21.00.00")) {
 			getPriceRequest.setProduct(
@@ -228,6 +235,16 @@ public class GetPriceApiControllerTest {
 		JsonApiBodyRequest request = new JsonApiBodyRequest();
 		request.data(listRequest);
 
+		List<GetPriceProductResponse> listResponse = new ArrayList<>();
+		GetPriceProductResponse getPriceResponse = new GetPriceProductResponse();
+		getPriceResponse.setHeader(aHeader().build());
+		getPriceResponse.response(aresponsePriceDto().build());
+
+		listResponse.add(getPriceResponse);
+
+		JsonApiBodyResponseSuccess responses = new JsonApiBodyResponseSuccess();
+		responses.data(listResponse);
+		
 		String controllerRquest = objectMapper.writeValueAsString(request);
 
 		try {
@@ -245,8 +262,7 @@ public class GetPriceApiControllerTest {
 			response.andExpect(jsonPath(DATA_JSONPATH + "response.brandId").value(1));
 
 		} catch (Exception e) {
-			// TODO: handle exception
-
+			
 			fail(e.getMessage());
 		}
 

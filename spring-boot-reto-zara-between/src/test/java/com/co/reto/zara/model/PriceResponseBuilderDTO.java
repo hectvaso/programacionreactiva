@@ -18,13 +18,13 @@ public class PriceResponseBuilderDTO {
 	  public PriceResponseBuilderDTO() throws ParseException {
 		  this.brandId = 	1;
 		  SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss");
-		  this.endDate = dateFormat.parse("2020-06-14 15.00.00");
+		  this.endDate = dateFormat.parse("2020-12-31 23.59.59");
 		  this.productId = 35455;
-		  this.startDate = dateFormat.parse("2020-06-14 15.00.00");;
+		  this.startDate = dateFormat.parse("2020-06-14 00.00.00");;
 		  this.rateIdentifier = (long) 0;
-		  this.price = (float) 35.50;
+		  this.price = (float) 35.5;
 		  
-		 
+		
 	  }
 	  
 	  public PriceResponseBuilderDTO whithDateStart(Date startDate) {

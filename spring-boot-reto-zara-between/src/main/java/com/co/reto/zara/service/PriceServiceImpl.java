@@ -36,6 +36,7 @@ public class PriceServiceImpl implements PriceService {
 		priceResponse.setPrice(price.getPrice());
 		priceResponse.setStartDate(price.getStartDate());
 		priceResponse.setEndDate(price.getEndDate());
+		getPriceProductResponse.setHeader(body.getData().get(0).getHeader());
 		getPriceProductResponse.setResponse(priceResponse);
 		jsonApiBodyResponseSuccess.addDataItem(getPriceProductResponse);
 		

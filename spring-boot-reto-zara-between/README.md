@@ -49,13 +49,13 @@ Se debe desplegar el servicio y la data de ejemplo para probarlo sería el sigui
       {  
          "header":{  
             "id":"12345",
-            "type":"TestGiraffeRefrigerator"
+            "type":"TestDateOne"
          },
         "product":{
-            "productId": 35455,
-        "startDate": "2020-12-31 23:59:59",
-        "endDate": "2020-06-14 00:00:00",
-        "brandId": 1
+           "productId": 35455,
+       		"startDate": "2020-12-31 23:59:59",
+        	"endDate": "2020-06-14 00:00:00",
+        	"brandId": 1
         }}
    ]
 }
@@ -72,7 +72,10 @@ Deberia retornar :
 	{
     "data": [
         {
-            "header": null,
+            "header":{  
+	            "id":"12345",
+	            "type":"TestDateOne"
+	         	},
             "response": {
                 "productId": 35455,
                 "brandId": 1,
