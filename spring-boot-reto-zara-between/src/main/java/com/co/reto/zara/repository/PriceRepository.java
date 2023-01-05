@@ -7,7 +7,7 @@ import com.co.reto.zara.model.Price;
 
 public interface PriceRepository extends CrudRepository<Price, Long> {
 
-	@Query(nativeQuery = true, value = "SELECT * FROM price WHERE  END_DATE =:startDate AND START_DATE =:endDate")
+	@Query(nativeQuery = true, value = "SELECT * FROM price WHERE  END_DATE =:endDate AND START_DATE =:startDate")
 	 Price findPriceByDate(@Param("endDate") String endDate, @Param("startDate") String startDate);
 
 }

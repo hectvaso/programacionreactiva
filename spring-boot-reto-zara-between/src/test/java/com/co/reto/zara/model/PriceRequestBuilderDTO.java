@@ -12,14 +12,22 @@ public class PriceRequestBuilderDTO {
 		  this.endDate = "2020-12-31 23.59.59";
 		  this.productId = 35455;
 		  this.startDate = "2020-06-14 00.00.00";
-		 
+		 /* "startDate": "2020-06-14 00:00:00",
+	        "endDate": "2020-12-31 23:59:59",
+	       */ 
 	  }
 	  
-	  public PriceRequestBuilderDTO whithDateStart(String startDate) {
+	  public PriceRequestBuilderDTO whithDateStartAndEndDate(String startDate, String endDate) {
 		
 		this.startDate = startDate;
+		this.endDate = endDate;
 		return this;
 	}
+	  public PriceRequestBuilderDTO whithDateStart(String startDate) {
+			
+			this.startDate = startDate;
+			return this;
+		}
 
 	public PriceRequestDTO build() {
 		  

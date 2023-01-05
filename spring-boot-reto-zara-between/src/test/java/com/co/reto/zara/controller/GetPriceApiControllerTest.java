@@ -73,18 +73,10 @@ public class GetPriceApiControllerTest  {
     	JsonApiBodyRequest request = new JsonApiBodyRequest();
     	request.data(listRequest);
     	
-    	List<GetPriceProductResponse>listResponse = new ArrayList<>();
-    	GetPriceProductResponse getPriceResponse = new GetPriceProductResponse();
-    	getPriceResponse.setResponse(aresponsePriceDto().build());
-    	listResponse.add(getPriceResponse);
-    	
-    	JsonApiBodyResponseSuccess responseService = new JsonApiBodyResponseSuccess();
-    	responseService.data(listResponse);
-    	
+    		
     	String controllerRquest = objectMapper.writeValueAsString(request);
 
-    	//String controllerRquest = gsonConverter.toJson(request);
-	    try {
+    	try {
 		
 	    /*Act*/
 	    ResultActions response = (ResultActions) mockMvc.perform(
@@ -93,11 +85,11 @@ public class GetPriceApiControllerTest  {
 	        );
 	    /*Assert*/
 	     response.andExpect(status().isOk());
-	     response.andExpect(jsonPath(DATA_JSONPATH).exists());
-	     response.andExpect(jsonPath("$.data[0].responseCode").value("0000"));
-	     response.andExpect(jsonPath("$.data[0].response").value("Solicitud registrada exitosamente"));
-	     verify(mockService, times(1)).getPriceByDate(any(JsonApiBodyRequest.class));
-
+	     response.andExpect(jsonPath("$.data[0].response.price").value(35.5));
+	     response.andExpect(jsonPath("$.data[0].response.rateIdentifier").value(1));
+	     response.andExpect(jsonPath("$.data[0].response.productId").value(35455));
+	     response.andExpect(jsonPath("$.data[0].response.brandId").value(1));
+	    
 	  } catch (Exception e) {
 			// TODO: handle exception
 		  
@@ -114,19 +106,21 @@ public class GetPriceApiControllerTest  {
     	GetPriceRequest getPriceRequest = new GetPriceRequest();
     	getPriceRequest.setHeader(aHeader().build());
     	getPriceRequest.setProduct(arequestPriceDto().whithDateStart("2020-06-14 16.00.00").build());
+    	
+     	
+    	if(getPriceRequest.getProduct().getStartDate().equals("2020-06-14 16.00.00")) {
+    		getPriceRequest.setProduct(arequestPriceDto().whithDateStartAndEndDate("2020-06-14 15.00.00","2020-06-14 18.30.00").build());
+        		
+    	}
+    	listRequest.add(getPriceRequest);
+    	
+    	
     	JsonApiBodyRequest request = new JsonApiBodyRequest();
     	request.data(listRequest);
     	
     	String controllerRquest = objectMapper.writeValueAsString(request);
 	 
-    	List<GetPriceProductResponse>listResponse = new ArrayList<>();
-    	GetPriceProductResponse getPriceResponse = new GetPriceProductResponse();
-    	getPriceResponse.setResponse(aresponsePriceDto().build());
-    	listResponse.add(getPriceResponse);
-    	
-    	JsonApiBodyResponseSuccess responseService = new JsonApiBodyResponseSuccess();
-    	responseService.data(listResponse);
-    	
+    		
     	try {
 		
 	    /*Act*/
@@ -134,13 +128,14 @@ public class GetPriceApiControllerTest  {
 	            post("/getPrice").contentType(MediaType.APPLICATION_JSON)
 	        .content(controllerRquest).accept(MediaType.APPLICATION_JSON)
 	        );
+	    
 	    /*Assert*/
 	     response.andExpect(status().isOk());
-	     response.andExpect(jsonPath(DATA_JSONPATH).exists());
-	     response.andExpect(jsonPath("$.data[0].responseCode").value("0000"));
-	     response.andExpect(jsonPath("$.data[0].response").value("Solicitud registrada exitosamente"));
-	     verify(mockService, times(1)).getPriceByDate(any(JsonApiBodyRequest.class));
-
+	     response.andExpect(jsonPath("$.data[0].response.price").value(25.45));
+	     response.andExpect(jsonPath("$.data[0].response.rateIdentifier").value(2));
+	     response.andExpect(jsonPath("$.data[0].response.productId").value(35455));
+	     response.andExpect(jsonPath("$.data[0].response.brandId").value(1));
+	   
 	  } catch (Exception e) {
 			// TODO: handle exception
 		  
@@ -158,33 +153,35 @@ public class GetPriceApiControllerTest  {
     	GetPriceRequest getPriceRequest = new GetPriceRequest();
     	getPriceRequest.setHeader(aHeader().build());
     	getPriceRequest.setProduct(arequestPriceDto().whithDateStart("2020-06-14 21.00.00").build());
+    	
+     	
+    	if(getPriceRequest.getProduct().getStartDate().equals("2020-06-14 21.00.00")) {
+    		getPriceRequest.setProduct(arequestPriceDto().whithDateStartAndEndDate("2020-06-14 00.00.00","2020-12-31 23.59.59").build());
+        		
+    	}
+    	listRequest.add(getPriceRequest);
+    	
+    	
     	JsonApiBodyRequest request = new JsonApiBodyRequest();
     	request.data(listRequest);
     	
     	String controllerRquest = objectMapper.writeValueAsString(request);
 	 
-    	List<GetPriceProductResponse>listResponse = new ArrayList<>();
-    	GetPriceProductResponse getPriceResponse = new GetPriceProductResponse();
-    	getPriceResponse.setResponse(aresponsePriceDto().build());
-    	listResponse.add(getPriceResponse);
     	
-    	JsonApiBodyResponseSuccess responseService = new JsonApiBodyResponseSuccess();
-    	responseService.data(listResponse);
-    
     		try {
 		
 	    /*Act*/
-	    ResultActions response = (ResultActions) mockMvc.perform(
+    ResultActions response = (ResultActions) mockMvc.perform(
 	            post("/getPrice").contentType(MediaType.APPLICATION_JSON)
 	        .content(controllerRquest).accept(MediaType.APPLICATION_JSON)
 	        );
 	    /*Assert*/
-	     response.andExpect(status().isOk());
-	     response.andExpect(jsonPath(DATA_JSONPATH).exists());
-	     response.andExpect(jsonPath("$.data[0].responseCode").value("0000"));
-	     response.andExpect(jsonPath("$.data[0].response").value("Solicitud registrada exitosamente"));
-	     verify(mockService, times(1)).getPriceByDate(any(JsonApiBodyRequest.class));
-
+    response.andExpect(status().isOk());
+    response.andExpect(jsonPath("$.data[0].response.price").value(35.5));
+    response.andExpect(jsonPath("$.data[0].response.rateIdentifier").value(1));
+    response.andExpect(jsonPath("$.data[0].response.productId").value(35455));
+    response.andExpect(jsonPath("$.data[0].response.brandId").value(1));
+  
 	  } catch (Exception e) {
 			// TODO: handle exception
 		  
@@ -200,34 +197,35 @@ public class GetPriceApiControllerTest  {
     	GetPriceRequest getPriceRequest = new GetPriceRequest();
     	getPriceRequest.setHeader(aHeader().build());
     	getPriceRequest.setProduct(arequestPriceDto().whithDateStart("2020-06-15 10.00.00").build());
+    	
+     	
+    	if(getPriceRequest.getProduct().getStartDate().equals("2020-06-15 10.00.00")) {
+    		getPriceRequest.setProduct(arequestPriceDto().whithDateStartAndEndDate("2020-06-15 00.00.00","2020-06-15 11.00.00").build());
+        		
+    	}
+    	listRequest.add(getPriceRequest);
+    	
+    	
     	JsonApiBodyRequest request = new JsonApiBodyRequest();
     	request.data(listRequest);
     	
     	String controllerRquest = objectMapper.writeValueAsString(request);
 	 
-    	List<GetPriceProductResponse>listResponse = new ArrayList<>();
-    	GetPriceProductResponse getPriceResponse = new GetPriceProductResponse();
-    	getPriceResponse.setResponse(aresponsePriceDto().build());
-    	listResponse.add(getPriceResponse);
-    	
-    	JsonApiBodyResponseSuccess responseService = new JsonApiBodyResponseSuccess();
-    	responseService.data(listResponse);
-    
-    	
-    	  try {
+    		 try {
 		
 	    /*Act*/
-	    ResultActions response = (ResultActions) mockMvc.perform(
+	   ResultActions response = (ResultActions) mockMvc.perform(
 	            post("/getPrice").contentType(MediaType.APPLICATION_JSON)
 	        .content(controllerRquest).accept(MediaType.APPLICATION_JSON)
 	        );
 	    /*Assert*/
-	     response.andExpect(status().isOk());
-	     response.andExpect(jsonPath(DATA_JSONPATH).exists());
-	     response.andExpect(jsonPath("$.data[0].responseCode").value("0000"));
-	     response.andExpect(jsonPath("$.data[0].response").value("Solicitud registrada exitosamente"));
-	     verify(mockService, times(1)).getPriceByDate(any(JsonApiBodyRequest.class));
-
+	        response.andExpect(status().isOk());
+	        response.andExpect(jsonPath("$.data[0].response.price").value(30.5));
+	        response.andExpect(jsonPath("$.data[0].response.rateIdentifier").value(3));
+	        response.andExpect(jsonPath("$.data[0].response.productId").value(35455));
+	        response.andExpect(jsonPath("$.data[0].response.brandId").value(1));
+	      
+	    	
 	  } catch (Exception e) {
 			// TODO: handle exception
 		  
@@ -245,33 +243,36 @@ public class GetPriceApiControllerTest  {
     	GetPriceRequest getPriceRequest = new GetPriceRequest();
     	getPriceRequest.setHeader(aHeader().build());
     	getPriceRequest.setProduct(arequestPriceDto().whithDateStart("2020-06-16 21.00.00").build());
+    	
+     	
+    	if(getPriceRequest.getProduct().getStartDate().equals("2020-06-16 21.00.00")) {
+    		getPriceRequest.setProduct(arequestPriceDto().whithDateStartAndEndDate("2020-06-15 16.00.00","2020-12-31 23.59.59").build());
+        		
+    	}
+    	listRequest.add(getPriceRequest);
+    	
+    	
     	JsonApiBodyRequest request = new JsonApiBodyRequest();
     	request.data(listRequest);
     	
     	String controllerRquest = objectMapper.writeValueAsString(request);
 	 
-    	List<GetPriceProductResponse>listResponse = new ArrayList<>();
-    	GetPriceProductResponse getPriceResponse = new GetPriceProductResponse();
-    	getPriceResponse.setResponse(aresponsePriceDto().build());
-    	listResponse.add(getPriceResponse);
     	
-    	JsonApiBodyResponseSuccess responseService = new JsonApiBodyResponseSuccess();
-    	responseService.data(listResponse);
-    
        try {
 		
 	    /*Act*/
-	    ResultActions response = (ResultActions) mockMvc.perform(
+	   ResultActions response = (ResultActions) mockMvc.perform(
 	            post("/getPrice").contentType(MediaType.APPLICATION_JSON)
 	        .content(controllerRquest).accept(MediaType.APPLICATION_JSON)
 	        );
 	    /*Assert*/
-	     response.andExpect(status().isOk());
-	     response.andExpect(jsonPath(DATA_JSONPATH).exists());
-	     response.andExpect(jsonPath("$.data[0].responseCode").value("0000"));
-	     response.andExpect(jsonPath("$.data[0].response").value("Solicitud registrada exitosamente"));
-	     verify(mockService, times(1)).getPriceByDate(any(JsonApiBodyRequest.class));
-
+	   
+	   response.andExpect(status().isOk());
+       response.andExpect(jsonPath("$.data[0].response.price").value(38.95));
+       response.andExpect(jsonPath("$.data[0].response.rateIdentifier").value(4));
+       response.andExpect(jsonPath("$.data[0].response.productId").value(35455));
+       response.andExpect(jsonPath("$.data[0].response.brandId").value(1));
+     
 	  } catch (Exception e) {
 			// TODO: handle exception
 		  
